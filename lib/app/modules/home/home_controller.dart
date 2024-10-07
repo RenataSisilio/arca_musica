@@ -20,4 +20,14 @@ class HomeController extends Cubit<HomeState> {
       emit(ErrorHomeState(e));
     }
   }
+
+  Future<void> selectDay(DateTime selectedDay) async {
+    emit(LoadingHomeState());
+    try {
+      final day = await _repo.getDay(selectedDay);
+      emit(SuccessHomeState(day));
+    } on AppError catch (e) {
+      emit(ErrorHomeState(e));
+    }
+  }
 }

@@ -26,6 +26,25 @@ class HomePage extends StatelessWidget {
                   title: Text(DateFormat('dd/MM/yyyy').format(state.day.data)),
                   backgroundColor: state.day.cor,
                   centerTitle: true,
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        final today = DateTime.now();
+                        showDatePicker(
+                          context: context,
+                          firstDate: DateTime(today.year),
+                          lastDate: DateTime(today.year + 1)
+                              .subtract(Duration(days: 1)),
+                          initialDate: state.day.data,
+                        ).then(
+                          (day) => day == null
+                              ? _controller.initialize()
+                              : _controller.selectDay(day),
+                        );
+                      },
+                      icon: Icon(Icons.calendar_month),
+                    ),
+                  ],
                 ),
               _ => null,
             },

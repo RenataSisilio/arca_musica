@@ -33,7 +33,7 @@ class SuccessHomeView extends StatelessWidget {
               ),
               LiturgyPart(
                 'Salmo - ${day.salmo.ref}',
-                day.salmo.text,
+                '${day.salmo.compl}\n${day.salmo.text}',
               ),
               if (day.segundaLeitura != null)
                 LiturgyPart(
