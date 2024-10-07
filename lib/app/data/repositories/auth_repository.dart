@@ -37,13 +37,11 @@ final class AuthRepository {
   ///
   /// Returns true in case of success, and throws (or rethrows) an specific error in case.
   Future<bool> signIn({
-    String? email,
     required String password,
-    String? username,
+    required String username,
   }) async {
     try {
       final user = UserLoginInfo(
-        email: email,
         password: password,
         username: username,
       );

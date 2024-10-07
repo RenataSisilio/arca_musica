@@ -11,7 +11,7 @@ class SignInController extends FormPageController<AuthState> {
   final AuthRepository _repo;
 
   /// Controller for user's email field.
-  final email = TextEditingController();
+  final username = TextEditingController();
 
   /// Controller for user's password field.
   final password = TextEditingController();
@@ -22,7 +22,7 @@ class SignInController extends FormPageController<AuthState> {
     if (validateAll()) {
       try {
         emit(LoadingAuthState());
-        await _repo.signIn(email: email.text, password: password.text);
+        await _repo.signIn(username: username.text, password: password.text);
         emit(SuccessAuthState());
       } on AppError catch (e) {
         emit(ErrorAuthState(e));

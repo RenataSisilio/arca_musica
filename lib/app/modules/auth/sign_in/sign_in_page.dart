@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../core/interfaces/app_page.dart';
 import '../../../core/routes/routes.dart';
-import '../components/email_field.dart';
 import '../components/password_field.dart';
 import '../components/text_header.dart';
+import '../components/username_field.dart';
 import 'sign_in_controller.dart';
 
 class SignInPage extends StatelessWidget {
@@ -18,7 +18,7 @@ class SignInPage extends StatelessWidget {
       _controller,
       header: const TextHeader('Entrar'),
       bodyElements: [
-        EmailField(key: GlobalKey(), controller: _controller.email),
+        UsernameField(key: GlobalKey(), controller: _controller.username),
         const SizedBox(height: 16),
         PasswordField(
           key: GlobalKey(),

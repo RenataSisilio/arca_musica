@@ -30,7 +30,7 @@ class SignUpController extends FormPageController<AuthState> {
           password: password.text,
           username: username.text,
         );
-        await _repo.signIn(email: email.text, password: password.text);
+        await _repo.signUp(email: email.text, password: password.text, username: username.text);
         emit(SuccessAuthState());
       } on AppError catch (e) {
         emit(ErrorAuthState(e));

@@ -34,30 +34,41 @@ final class ParseSdkAuthClient implements AuthClientInterface {
   @override
   Future signIn(Map<String, dynamic> data) async {
     try {
-      final user = ParseUser(
-        data['username']?.trim(),
-        data['password'].trim(),
-        data['email']?.trim(),
-      );
+      final username = data['username'].trim();
+      final password = data['password'].trim();
 
-      ParseResponse response;
+      final user = ParseUser(username, password, null);
 
-      try {
-        response = await user.login();
-      } catch (_) {
-        final parseQuery = QueryBuilder(ParseUser.forQuery());
-        final queryUserResponse = await parseQuery.query();
+      var response = await user.login();
 
-        if (queryUserResponse.success && queryUserResponse.results != null) {
-          response = await (queryUserResponse.results as List<ParseUser>).first.login();
-        } else {
-          throw UserNotFoundClientError(data['email']);
-        }
+      if (response.success) {
+        return response.result;
+      } else {
+        throw ParseSdkClientError(response.error!);
       }
 
-      return response.success
-          ? response.result
-          : throw ParseSdkClientError(response.error!);
+      // According to the doc, this should work, but it isn't
+      //
+      // final queryUsers = QueryBuilder<ParseUser>(ParseUser.forQuery());
+      // final apiResponse = await queryUsers.query();
+
+      // if (apiResponse.success && apiResponse.results != null) {
+      //   for (var user in apiResponse.results!) {
+      //     if (user case ParseUser()) {
+      //       if (user.emailAddress == data['email']) {
+      //         user.set('password', data['password']);
+      //         await user.save();
+      //         log(user.sessionToken ?? 'null sessionToken');
+      //         final response = await user.login();
+
+      //         return response.success
+      //             ? response.result
+      //             : throw ParseSdkClientError(response.error!);
+      //       }
+      //     }
+      //   }
+      // }
+      // throw UserNotFoundClientError(data['email']);
     } catch (e) {
       rethrow;
     }
