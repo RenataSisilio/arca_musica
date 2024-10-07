@@ -21,9 +21,15 @@ final class DioClient implements ClientInterface {
   }
 
   @override
-  Future delete(String endpoint, {required String id}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future delete(String endpoint, {required String id}) async {
+    try {
+      final response = await _dio.delete(endpoint + id);
+      return response.data;
+    } on DioException catch (e) {
+      throw DioConnectionError(e);
+    } catch (e) {
+      throw UnespecifiedClientError(e);
+    }
   }
 
   @override
@@ -31,15 +37,27 @@ final class DioClient implements ClientInterface {
     String endpoint, {
     required String id,
     required Map<String, dynamic> data,
-  }) {
-    // TODO: implement edit
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.post(endpoint + id, data: data);
+      return response.data;
+    } on DioException catch (e) {
+      throw DioConnectionError(e);
+    } catch (e) {
+      throw UnespecifiedClientError(e);
+    }
   }
 
   @override
-  Future get(String endpoint, {String? id}) {
-    // TODO: implement get
-    throw UnimplementedError();
+  Future get(String endpoint, {String? id}) async {
+    try {
+      final response = await _dio.get(endpoint);
+      return response.data;
+    } on DioException catch (e) {
+      throw DioConnectionError(e);
+    } catch (e) {
+      throw UnespecifiedClientError(e);
+    }
   }
 
   @override
@@ -47,8 +65,14 @@ final class DioClient implements ClientInterface {
     String endpoint, {
     required String id,
     required Map<String, dynamic> data,
-  }) {
-    // TODO: implement replace
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.put(endpoint + id, data: data);
+      return response.data;
+    } on DioException catch (e) {
+      throw DioConnectionError(e);
+    } catch (e) {
+      throw UnespecifiedClientError(e);
+    }
   }
 }

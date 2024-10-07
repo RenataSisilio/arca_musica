@@ -55,7 +55,7 @@ class DiaLiturgico {
         "evangelho": Map evangelho,
       } =>
         DiaLiturgico._(
-          data: DateFormat('DD/MM/AAAA').parse(date),
+          data: DateFormat('DD/MM/yyyy').parse(date),
           liturgia: liturgia,
           cor: color.toColor(),
           coleta: coleta,
@@ -80,7 +80,7 @@ class DiaLiturgico {
         "evangelho": Map evangelho,
       } =>
         DiaLiturgico._(
-          data: DateFormat('DD/MM/AAAA').parse(date),
+          data: DateFormat('DD/MM/yyyy').parse(date),
           liturgia: liturgia,
           cor: color.toColor(),
           coleta: coleta,
